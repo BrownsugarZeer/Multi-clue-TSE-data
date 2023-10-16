@@ -96,10 +96,10 @@ def prepare_multi_clue_tse(
             try:
                 exit_code = process.wait(timeout=30)
                 if exit_code != 0:
-                    logging.error(f"Failed to download [{fname}]({url})")
+                    logging.error("Failed to download [%s](%s)", fname, url)
                     return
             except subprocess.TimeoutExpired:
-                logging.error(f"Timeout [{fname}]({url})")
+                logging.error("Timeout [%s](%s)", fname, url)
                 process.terminate()  # give up
                 return
 
