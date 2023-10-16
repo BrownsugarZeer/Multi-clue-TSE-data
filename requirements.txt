@@ -9,3 +9,4 @@ transformers>=4.28.1
 yt-dlp>=2023.06.22
 rich>=13.6.0
 kaldiio>=2.18.0
+decord>=0.6.0
