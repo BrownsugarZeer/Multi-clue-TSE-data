@@ -9,11 +9,11 @@ from audioset_tagging_cnn.pytorch.models import *
 from audioset_tagging_cnn.pytorch.pytorch_utils import move_data_to_device
 from audioset_tagging_cnn.utils.config import classes_num
 from pathlib import Path
-from utils import progress_bar
+from utils.tracker import progress_bar
 device = torch.device("cuda")
 
 current_dir = Path(".")
-output_dir = current_dir.joinpath("data/tse_simulated")
+output_dir = current_dir.joinpath("data", "tse_simulated")
 folders = ["train", "valid", "test", "unseen"]
 
 

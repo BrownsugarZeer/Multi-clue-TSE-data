@@ -4,12 +4,12 @@ import numpy as np
 import pandas as pd
 from transformers import pipeline
 from pathlib import Path
-from utils import progress_bar
+from utils.tracker import progress_bar
 
 
 current_dir = Path(".")
-output_dir = current_dir.joinpath("data/tse_simulated")
-caption_path = current_dir.joinpath("annotations", "caps.json")
+output_dir = current_dir.joinpath("data", "tse_simulated")
+caption_path = current_dir.joinpath("annotations", "audioset/caps.json")
 folders = ["train", "valid", "test", "unseen"]
 
 model = pipeline(

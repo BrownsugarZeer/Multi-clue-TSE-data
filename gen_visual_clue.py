@@ -5,16 +5,16 @@ import pandas as pd
 from PIL import Image
 from transformers import SwinModel, ViTImageProcessor
 from pathlib import Path
-from utils import progress_bar
+from utils.tracker import progress_bar
 decord.bridge.set_bridge('torch')
 
 
 # Replace the following dirs with your AudioSet and AudioCaps data path here.
 # Assume all .mp4 files are included in {audiocaps_dir} and {audioset_dir}
 current_dir = Path(".")
-output_dir = current_dir.joinpath("data/tse_simulated")
-audioset_audiocaps_dir = current_dir.joinpath("data/tse_anchors")
-anchors_path = current_dir.joinpath("annotations", "all.txt")
+output_dir = current_dir.joinpath("data", "tse_simulated")
+audioset_audiocaps_dir = current_dir.joinpath("data", "tse_anchors")
+anchors_path = current_dir.joinpath("annotations", "audioset/all.txt")
 folders = ["train", "valid", "test", "unseen"]
 
 # Using tiny model to test. In our paper, the model is the large one.

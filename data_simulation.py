@@ -1,19 +1,18 @@
 import csv
 import librosa
-import logging
 import numpy
 import soundfile as sf
 from pathlib import Path
-from utils import progress_bar, logger
+from utils.tracker import progress_bar, logger
 
 logger(filename="data_simulation_error_log.txt")
 
 # Replace the following dirs with your AudioSet and AudioCaps data path here.
 # Assume all .mp4 or .wav files are included in {audiocaps_dir} and {audioset_dir}
 current_dir = Path(".")
-audioset_audiocaps_dir = current_dir.joinpath("data/tse_anchors")
-anchors_path = current_dir.joinpath("annotations", "all.txt")
-output_dir = current_dir.joinpath("data/tse_simulated_")
+audioset_audiocaps_dir = current_dir.joinpath("data", "tse_anchors")
+anchors_path = current_dir.joinpath("annotations", "audioset/all.txt")
+output_dir = current_dir.joinpath("data", "tse_simulated")
 output_dir.mkdir(parents=True, exist_ok=True)
 
 for path in [audioset_audiocaps_dir, anchors_path]:
@@ -24,10 +23,10 @@ CLIP_LEN = 2.0
 HCLIP_LEN = CLIP_LEN / 2
 
 folders = {
-    # "train": current_dir.joinpath("annotations", "train.txt"),
-    "valid": current_dir.joinpath("annotations", "val.txt"),
-    # "test": current_dir.joinpath("annotations", "test.txt"),
-    # "unseen": current_dir.joinpath("annotations", "unseen.txt"),
+    # "train": current_dir.joinpath("annotations", "audioset/train.txt"),
+    "valid": current_dir.joinpath("annotations", "audioset/val.txt"),
+    # "test": current_dir.joinpath("annotations", "audioset/test.txt"),
+    # "unseen": current_dir.joinpath("annotations", "audioset/unseen.txt"),
 }
 
 
