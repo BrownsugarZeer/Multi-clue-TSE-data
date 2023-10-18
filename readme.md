@@ -56,7 +56,7 @@ AudioSet provides data as YouTube IDs or 128-dimensional feature vectors. Howeve
 
 ### AudioCaps
 
-[AudioCaps](https://audiocaps.github.io/) is a subset of Audioset and is already included in `annotations/all.txt`, so there is no need to download it again.
+[AudioCaps](https://audiocaps.github.io/) is a subset of Audioset and is already included in `"annotations/audioset/all.txt`, so there is no need to download it again.
 
 ## Citations
 
