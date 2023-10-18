@@ -1,3 +1,0 @@
-[submodule "dep/audioset_tagging_cnn"]
-	path = dep/audioset_tagging_cnn
-	url = https://github.com/qiuqiangkong/audioset_tagging_cnn.git

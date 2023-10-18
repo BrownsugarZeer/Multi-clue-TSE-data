@@ -3,7 +3,7 @@ import librosa
 import numpy
 import soundfile as sf
 from pathlib import Path
-from utils.tracker import progress_bar, logger
+from customs.tracker import progress_bar, logger
 
 logger(filename="data_simulation_error_log.txt")
 

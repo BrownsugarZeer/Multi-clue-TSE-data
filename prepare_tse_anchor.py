@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from time import strftime, gmtime, sleep
 from typing import Optional
-from utils import progress_bar, logger
+from customs.tracker import progress_bar, logger
 
 logger(filename="yt_dlp_error_log.txt")
 

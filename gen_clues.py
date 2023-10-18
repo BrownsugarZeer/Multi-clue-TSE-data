@@ -2,8 +2,8 @@ import copy
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from utils.tracker import progress_bar
-from utils.clues import TextClue, VisualClue, TagClue
+from customs.tracker import progress_bar
+from customs.clues import TextClue, VisualClue, TagClue
 
 current_dir = Path(".")
 output_dir = current_dir.joinpath("data", "tse_simulated")
