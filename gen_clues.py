@@ -1,9 +1,12 @@
 import copy
 import numpy as np
 import pandas as pd
+import logging
 from pathlib import Path
-from customs.tracker import progress_bar
+from customs.tracker import progress_bar, logger
 from customs.clues import TextClue, VisualClue, TagClue
+
+logger(filename="gen_clues_error_log.txt")
 
 current_dir = Path(".")
 output_dir = current_dir.joinpath("data", "tse_simulated")
@@ -45,27 +48,31 @@ if __name__ == "__main__":
             for idx, key in enumerate(utts.keys()):
                 vid = key.split('_mix_')[0]
 
-                for clue in clues:
-                    clue_path = output_dir.joinpath(folder, f"{clue.name}/{key}.npy")
+                try:
+                    for clue in clues:
+                        clue_path = output_dir.joinpath(folder, f"{clue.name}/{key}.npy")
 
-                    if clue.name in ["text_clue", "visual_clue"]:
-                        clue_emb = clue.compute_feat(vid)
-                    elif clue.name in ["tag_clue"]:
-                        clue_emb = clue.compute_feat(utts[key])
-                    else:
-                        raise NotImplementedError
-                    np.save(clue_path, clue_emb)
+                        if clue.name in [TextClue.name, VisualClue.name]:
+                            clue_emb = clue.compute_feat(vid)
+                        elif clue.name in [TagClue.name]:
+                            clue_emb = clue.compute_feat(utts[key])
+                        else:
+                            raise NotImplementedError
+                        np.save(clue_path, clue_emb)
 
-                    folders[folder][clue.name].append(clue_path)
-                folders[folder]["ID"].append(key)
+                        folders[folder][clue.name].append(clue_path)
+                    folders[folder]["ID"].append(key)
+
+                except Exception as e:
+                    logging.error("[Error] %s(%s)", key, e.__class__.__name__)
+                    continue
 
                 progress_bar.update(task_id, advance=1)
 
-            # Debug
-            # if idx > 5:
-            #     break
+                # Debug
+                # if idx > 5:
+                #     break
 
-    for split in folders:
-        new_filename = current_dir.joinpath("annotations", f"{split}.csv")
-        new_df = pd.DataFrame(folders[split])
+        new_filename = current_dir.joinpath("annotations", f"{folder}.csv")
+        new_df = pd.DataFrame(folders[folder])
         new_df.to_csv(new_filename, index=False)
