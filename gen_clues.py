@@ -20,14 +20,14 @@ clues = [
     ),
     TagClue(),
 ]
-fields = {"ID": [], **{clue.name: [] for clue in clues}}
+fields = {"ID": [], "s1_dir": [], "mix_dir": [], **{f"{clue.name}_dir": [] for clue in clues}}
 folders = {
     folder: copy.deepcopy(fields)
     for folder in ["train", "valid", "test", "unseen"]
 }
 
 if __name__ == "__main__":
-    for folder in folders.keys():
+    for folder in folders:
         try:
             utts = pd.read_csv(
                 output_dir.joinpath(folder, "annotation.csv"),
@@ -60,8 +60,21 @@ if __name__ == "__main__":
                             raise NotImplementedError
                         np.save(clue_path, clue_emb)
 
-                        folders[folder][clue.name].append(clue_path)
+                        folders[folder][f"{clue.name}_dir"].append(
+                            str(clue_path.parent)
+                            .replace(str(output_dir), "$data_root")
+                        )
+
                     folders[folder]["ID"].append(key)
+                    folders[folder]["s1_dir"].append(
+                        str(Path(utts[key]).parent)
+                        .replace(str(output_dir), "$data_root")
+                    )
+                    folders[folder]["mix_dir"].append(
+                        str(Path(utts[key]).parent)
+                        .replace("s1", "mix")
+                        .replace(str(output_dir), "$data_root")
+                    )
 
                 except Exception as e:
                     logging.error("[Error] %s(%s)", key, e.__class__.__name__)
